@@ -37,7 +37,7 @@ Ensuring Reproducible Builds with the Cargo.lock File. Cargo.lock file was creat
 When you build a project for the first time, Cargo figures out all the versions of the dependencies that fit the criteria and then writes them to the Cargo.lock file. 
 When you build your project in the future, Cargo will see that the Cargo.lock file exists and use the versions specified there rather than doing all the work of figuring out versions again. This lets you have a reproducible build automatically. In other words, your project will remain at 0.5.5 until you explicitly upgrade, thanks to the Cargo.lock file.
 
-# Updating a Crate to Get a New Version
+## Updating a Crate to Get a New Version
 
 ```bash
 cargo update
