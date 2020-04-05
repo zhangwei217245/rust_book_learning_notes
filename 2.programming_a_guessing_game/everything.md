@@ -47,6 +47,19 @@ This will ignore the Cargo.lock file and figure out all the latest versions that
 
 But by default, Cargo will only look for greater patch versions rather than greater minor versions, e.g. if originally 0.5.5, then `update` will only look for 0.5.x where x>5.
 
+# Reviewing docs for a method
+
+ You won’t just know which traits to use and which methods and functions to call from a crate. Instructions for using a crate are in each crate’s documentation. Another neat feature of Cargo is that you can run the `cargo doc --open` command, which will build documentation provided by all of your dependencies locally and open it in your browser. If you’re interested in other functionality in the rand crate, for example, run `cargo doc --open` and click rand in the sidebar on the left.
+
+# Placeholder `{}`
+
+```rust
+println!("You guessed: {}", guess);
+```
+
+The set of curly brackets, {}, is a placeholder: think of {} as little crab pincers that hold a value in place. You can print more than one value using curly brackets: the first set of curly brackets holds the first value listed after the format string, the second set holds the second value, and so on
+
+
 # Reference, Variables
 
 Suppose you want to define an immutable variable `x` and a mutable variable `y`. 
@@ -59,6 +72,34 @@ let mut y = 0;
 All references are immutable by default.
 When passing a reference as an argument of a function, this is a way to let multiple parts of your code access one piece of data without needing to copy that data into memory multiple times. 
 
+
+# Variable Shadowing
+
+Rust allows us to shadow the previous value of a variable with a new one. This feature is often used in situations in which you want to convert a value from one type to another type
+
+```rust
+    let mut guess = String::new();
+
+    io::stdin().read_line(&mut guess)
+        .expect("Failed to read line");
+
+    let guess: u32 = guess.trim().parse()
+        .expect("Please type a number!");
+```
+
+The `parse` method on strings parses a string into some kind of number. Because this method can parse a variety of number types, we need to tell Rust the exact number type we want by using `let guess: u32`. The colon (`:`) after guess tells Rust we’ll annotate the variable’s type. 
+
+Rust has a few built-in number types; the u32 seen here is an unsigned, 32-bit integer. It’s a good default choice for a small positive number. 
+
+
+# Infinite loop
+
+```rust
+    loop{
+
+
+    }
+```
 
 # Result types
 
@@ -74,28 +115,7 @@ For `Result`, the variants are `Ok` or `Err`. The `Ok` variant indicates the ope
 An instance of `io::Result` has an `expect` method that you can call. If this instance of `io::Result` is an `Err` value, expect will cause the program to crash and display the message that you passed as an argument to `expect`. If the `read_line` method returns an `Err`, it would likely be the result of an error coming from the underlying operating system. If this instance of `io::Result` is an `Ok` value, `expect` will take the return value that `Ok` is holding and return just that value to you so you can use it. In this case, that value is the number of bytes in what the user entered into standard input.
 
 
-# Placeholder `{}`
-
-```rust
-println!("You guessed: {}", guess);
-```
-
-The set of curly brackets, {}, is a placeholder: think of {} as little crab pincers that hold a value in place. You can print more than one value using curly brackets: the first set of curly brackets holds the first value listed after the format string, the second set holds the second value, and so on
-
-# Reviewing docs for a method
-
- You won’t just know which traits to use and which methods and functions to call from a crate. Instructions for using a crate are in each crate’s documentation. Another neat feature of Cargo is that you can run the `cargo doc --open` command, which will build documentation provided by all of your dependencies locally and open it in your browser. If you’re interested in other functionality in the rand crate, for example, run `cargo doc --open` and click rand in the sidebar on the left.
-
-# Infinite loop
-
-```rust
-    loop{
-
-
-    }
-```
-
- # Comparison in std
+# Comparison in std
 
  `std::cmp::Ordering`, like `Result`, is another enum, but the variants for `Ordering` are `Less`, `Greater`, and `Equal`, which are the three outcomes that are possible when you compare two values.
 
@@ -126,23 +146,6 @@ Codes after `=>` in a `match` block can be a statement or a block of statements.
     }
 ```
 
-# Variable Shadowing
-
-Rust allows us to shadow the previous value of a variable with a new one. This feature is often used in situations in which you want to convert a value from one type to another type
-
-```rust
-    let mut guess = String::new();
-
-    io::stdin().read_line(&mut guess)
-        .expect("Failed to read line");
-
-    let guess: u32 = guess.trim().parse()
-        .expect("Please type a number!");
-```
-
-The `parse` method on strings parses a string into some kind of number. Because this method can parse a variety of number types, we need to tell Rust the exact number type we want by using `let guess: u32`. The colon (`:`) after guess tells Rust we’ll annotate the variable’s type. 
-
-Rust has a few built-in number types; the u32 seen here is an unsigned, 32-bit integer. It’s a good default choice for a small positive number. 
 
 
 # Using match block for error handling:
