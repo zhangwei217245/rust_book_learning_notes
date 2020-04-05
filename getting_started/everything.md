@@ -28,13 +28,19 @@ fn main() {
 }
 ```
 
-## Compile:
+## Compile and run:
 
 ```bash
 rustc main.rs
+./main
 ```
 
 ## Notes:
 
-1. Functions start with keyword `fn`, 
+1. Functions start with keyword `fn`, then function name, parameter list wrapped with parentheses `()`, then function body wrapped with curly brackets `{}`
+2. all statements end with semicolon `;`
+3. all macro calls end with `!`
+
+
+
 
